@@ -6,6 +6,8 @@
 	import { fade } from 'svelte/transition';
 
 	export let user: User;
+	export let onDelete = () => {};
+	export let hideDetailsButton = false;
 	let isVisible = true;
 </script>
 
@@ -38,13 +40,18 @@
 					action={`/users/${user.id}`}
 					use:enhance={() => {
 						isVisible = false;
+						return async () => {
+							onDelete?.();
+						};
 					}}
 				>
 					<Button type="submit" size="sm" variant="destructive">Delete</Button>
 				</form>
-				<a href={`/users/${user.id}`}>
-					<Button size="sm">Details</Button>
-				</a>
+				{#if !hideDetailsButton}
+					<a href={`/users/${user.id}`}>
+						<Button size="sm">Details</Button>
+					</a>
+				{/if}
 			</Card.Footer>
 		</Card.Root>
 	</div>
