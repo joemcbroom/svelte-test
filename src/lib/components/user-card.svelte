@@ -40,9 +40,7 @@
 					action={`/users/${user.id}`}
 					use:enhance={() => {
 						isVisible = false;
-						return async () => {
-							onDelete?.();
-						};
+						onDelete?.();
 					}}
 				>
 					<Button type="submit" size="sm" variant="destructive">Delete</Button>
